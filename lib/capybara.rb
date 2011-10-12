@@ -186,10 +186,11 @@ module Capybara
     end
   end
 
-  autoload :Server,     'capybara/server'
-  autoload :Session,    'capybara/session'
-  autoload :Selector,   'capybara/selector'
-  autoload :VERSION,    'capybara/version'
+  autoload :Server,       'capybara/server'
+  autoload :Session,      'capybara/session'
+  autoload :Selector,     'capybara/selector'
+  autoload :Expectation,  'capybara/expectation'
+  autoload :VERSION,      'capybara/version'
 
   module Node
     autoload :Base,       'capybara/node/base'

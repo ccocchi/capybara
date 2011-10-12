@@ -78,7 +78,7 @@ module Capybara
         if failure_message
           failure_message.call(actual, self)
         else
-          "expected #{selector_name} to return something"
+          actual.unsatisfied_expectation.error_message_for(selector_name)
         end
       end
 

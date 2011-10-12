@@ -4,6 +4,13 @@ module Capybara
 
       ##
       #
+      # Hash that contains unsatisfied expectations
+      # [:name, expected, actual]
+      #
+      attr_accessor :unsatisfied_expectation
+
+      ##
+      #
       # Checks if a given selector is on the page or current node.
       #
       #     page.has_selector?('p#foo')
@@ -34,15 +41,18 @@ module Capybara
       #
       def has_selector?(*args)
         options = if args.last.is_a?(Hash) then args.last else {} end
+        @unsatisfied_expectation = nil
+        
         wait_until do
           results = all(*args)
-
+          
           case
           when results.empty?
             false
           when options[:between]
             options[:between] === results.size
           when options[:count]
+            @unsatisfied_expectation = Expectation.new(:count, options[:count], results.size)
             options[:count].to_i == results.size
           when options[:maximum]
             options[:maximum].to_i >= results.size
